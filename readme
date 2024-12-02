@@ -1,2 +1,15 @@
 보드통신
 https://mosquitto.org/download/
+
+mosquitto_username_pw_set
+mosquitto_options 세팅
+
+mosquitto_connect
+
+mosquitto_publish
+
+mosquitto_connect_callback_set
+
+mosquitto_loop
+
+ mfc
