@@ -1,0 +1,301 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"dac1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "source\\adc_dac\\dac1.c"
+  20              		.global	__aeabi_ui2d
+  21              		.global	__aeabi_ddiv
+  22              		.global	__aeabi_dmul
+  23              		.global	__aeabi_dcmpgt
+  24              		.global	__aeabi_d2uiz
+  25              		.section	.rodata.Dac1_Set_Voltage.str1.1,"aMS",%progbits,1
+  26              	.LC0:
+  27 0000 44414331 		.ascii	"DAC1 %4d mV \000"
+  27      20253464 
+  27      206D5620 
+  27      00
+  28              		.section	.text.Dac1_Set_Voltage,"ax",%progbits
+  29              		.align	1
+  30              		.global	Dac1_Set_Voltage
+  31              		.syntax unified
+  32              		.thumb
+  33              		.thumb_func
+  35              	Dac1_Set_Voltage:
+  36              	.LVL0:
+  37              	.LFB123:
+   1:source\adc_dac/dac1.c **** /********************************************************************************/
+   2:source\adc_dac/dac1.c **** /* dac1.c                                                                       */
+   3:source\adc_dac/dac1.c **** /* STM32F407ZGT6                                                                */
+   4:source\adc_dac/dac1.c **** /* (Lee ChangWoo HL2IRW  hl2irw@daum.net 010-8573-6860)                 	*/
+   5:source\adc_dac/dac1.c **** /* stm32f4x_test								*/
+   6:source\adc_dac/dac1.c **** /********************************************************************************/
+   7:source\adc_dac/dac1.c **** #include "../../hwdefs.h"
+   8:source\adc_dac/dac1.c **** #include "../prototype.h"
+   9:source\adc_dac/dac1.c **** 
+  10:source\adc_dac/dac1.c **** 
+  11:source\adc_dac/dac1.c **** volatile unsigned short send_dac;
+  12:source\adc_dac/dac1.c **** 
+  13:source\adc_dac/dac1.c **** 
+  14:source\adc_dac/dac1.c **** 
+  15:source\adc_dac/dac1.c **** void Dac1_Set_Voltage (unsigned short voltage)
+  16:source\adc_dac/dac1.c **** {
+  38              		.loc 1 16 1 view -0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  17:source\adc_dac/dac1.c ****       double temp = voltage;	// 1mV Range 3.3V = 3300
+  42              		.loc 1 17 7 view .LVU1
+  16:source\adc_dac/dac1.c ****       double temp = voltage;	// 1mV Range 3.3V = 3300
+  43              		.loc 1 16 1 is_stmt 0 view .LVU2
+  44 0000 D0B5     		push	{r4, r6, r7, lr}
+  45              		.cfi_def_cfa_offset 16
+  46              		.cfi_offset 4, -16
+  47              		.cfi_offset 6, -12
+  48              		.cfi_offset 7, -8
+  49              		.cfi_offset 14, -4
+  16:source\adc_dac/dac1.c ****       double temp = voltage;	// 1mV Range 3.3V = 3300
+  50              		.loc 1 16 1 view .LVU3
+  51 0002 0446     		mov	r4, r0
+  52              		.loc 1 17 14 view .LVU4
+  53 0004 FFF7FEFF 		bl	__aeabi_ui2d
+  54              	.LVL1:
+  18:source\adc_dac/dac1.c ****       if (voltage > 3300) voltage = 3300;
+  55              		.loc 1 18 7 is_stmt 1 view .LVU5
+  56              		.loc 1 18 10 is_stmt 0 view .LVU6
+  57 0008 40F6E443 		movw	r3, #3300
+  58 000c 9C42     		cmp	r4, r3
+  59 000e 28BF     		it	cs
+  60 0010 1C46     		movcs	r4, r3
+  61              	.LVL2:
+  19:source\adc_dac/dac1.c ****       temp /= 1000;
+  62              		.loc 1 19 7 is_stmt 1 view .LVU7
+  20:source\adc_dac/dac1.c ****       temp = temp * 4096 / 3.3;
+  63              		.loc 1 20 7 view .LVU8
+  19:source\adc_dac/dac1.c ****       temp /= 1000;
+  64              		.loc 1 19 12 is_stmt 0 view .LVU9
+  65 0012 0022     		movs	r2, #0
+  66 0014 184B     		ldr	r3, .L4+16
+  67 0016 FFF7FEFF 		bl	__aeabi_ddiv
+  68              	.LVL3:
+  69              		.loc 1 20 19 view .LVU10
+  70 001a 184B     		ldr	r3, .L4+20
+  71 001c 0022     		movs	r2, #0
+  72 001e FFF7FEFF 		bl	__aeabi_dmul
+  73              	.LVL4:
+  74              		.loc 1 20 12 view .LVU11
+  75 0022 11A3     		adr	r3, .L4
+  76 0024 D3E90023 		ldrd	r2, [r3]
+  77 0028 FFF7FEFF 		bl	__aeabi_ddiv
+  78              	.LVL5:
+  21:source\adc_dac/dac1.c ****       if (temp > 4095.0) temp = 4095.0;
+  79              		.loc 1 21 10 view .LVU12
+  80 002c 10A3     		adr	r3, .L4+8
+  81 002e D3E90023 		ldrd	r2, [r3]
+  20:source\adc_dac/dac1.c ****       temp = temp * 4096 / 3.3;
+  82              		.loc 1 20 12 view .LVU13
+  83 0032 0646     		mov	r6, r0
+  84 0034 0F46     		mov	r7, r1
+  85              	.LVL6:
+  86              		.loc 1 21 7 is_stmt 1 view .LVU14
+  87              		.loc 1 21 10 is_stmt 0 view .LVU15
+  88 0036 FFF7FEFF 		bl	__aeabi_dcmpgt
+  89              	.LVL7:
+  90 003a 10B1     		cbz	r0, .L2
+  91              		.loc 1 21 31 discriminator 1 view .LVU16
+  92 003c 0CA7     		adr	r7, .L4+8
+  93 003e D7E90067 		ldrd	r6, [r7]
+  94              	.LVL8:
+  95              	.L2:
+  22:source\adc_dac/dac1.c ****       DAC_SetChannel1Data(DAC_Align_12b_R,temp);
+  96              		.loc 1 22 7 is_stmt 1 view .LVU17
+  97 0042 3946     		mov	r1, r7
+  98 0044 3046     		mov	r0, r6
+  99 0046 FFF7FEFF 		bl	__aeabi_d2uiz
+ 100              	.LVL9:
+ 101 004a 81B2     		uxth	r1, r0
+ 102 004c 0020     		movs	r0, #0
+ 103 004e FFF7FEFF 		bl	DAC_SetChannel1Data
+ 104              	.LVL10:
+  23:source\adc_dac/dac1.c ****       lcd_printf(1,6,"DAC1 %4d mV ",voltage);
+ 105              		.loc 1 23 7 view .LVU18
+ 106 0052 2346     		mov	r3, r4
+ 107 0054 0A4A     		ldr	r2, .L4+24
+ 108 0056 0621     		movs	r1, #6
+ 109 0058 0120     		movs	r0, #1
+ 110 005a FFF7FEFF 		bl	lcd_printf
+ 111              	.LVL11:
+  24:source\adc_dac/dac1.c ****       send_dac = voltage;
+ 112              		.loc 1 24 7 view .LVU19
+ 113              		.loc 1 24 16 is_stmt 0 view .LVU20
+ 114 005e 094B     		ldr	r3, .L4+28
+ 115 0060 1C80     		strh	r4, [r3]	@ movhi
+  25:source\adc_dac/dac1.c **** }
+ 116              		.loc 1 25 1 view .LVU21
+ 117 0062 D0BD     		pop	{r4, r6, r7, pc}
+ 118              	.LVL12:
+ 119              	.L5:
+ 120              		.loc 1 25 1 view .LVU22
+ 121 0064 AFF30080 		.align	3
+ 122              	.L4:
+ 123 0068 66666666 		.word	1717986918
+ 124 006c 66660A40 		.word	1074423398
+ 125 0070 00000000 		.word	0
+ 126 0074 00FEAF40 		.word	1085275648
+ 127 0078 00408F40 		.word	1083129856
+ 128 007c 0000B040 		.word	1085276160
+ 129 0080 00000000 		.word	.LC0
+ 130 0084 00000000 		.word	send_dac
+ 131              		.cfi_endproc
+ 132              	.LFE123:
+ 134              		.section	.text.Dac1_Init,"ax",%progbits
+ 135              		.align	1
+ 136              		.global	Dac1_Init
+ 137              		.syntax unified
+ 138              		.thumb
+ 139              		.thumb_func
+ 141              	Dac1_Init:
+ 142              	.LFB124:
+  26:source\adc_dac/dac1.c **** 
+  27:source\adc_dac/dac1.c **** 
+  28:source\adc_dac/dac1.c **** void Dac1_Init (void)
+  29:source\adc_dac/dac1.c **** {  
+ 143              		.loc 1 29 1 is_stmt 1 view -0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 16
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+  30:source\adc_dac/dac1.c ****       DAC_InitTypeDef DAC_InitType;	
+ 147              		.loc 1 30 7 view .LVU24
+  31:source\adc_dac/dac1.c ****       RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
+ 148              		.loc 1 31 7 view .LVU25
+  29:source\adc_dac/dac1.c ****       DAC_InitTypeDef DAC_InitType;	
+ 149              		.loc 1 29 1 is_stmt 0 view .LVU26
+ 150 0000 1FB5     		push	{r0, r1, r2, r3, r4, lr}
+ 151              		.cfi_def_cfa_offset 24
+ 152              		.cfi_offset 4, -8
+ 153              		.cfi_offset 14, -4
+ 154              		.loc 1 31 7 view .LVU27
+ 155 0002 0121     		movs	r1, #1
+ 156 0004 0846     		mov	r0, r1
+ 157 0006 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+ 158              	.LVL13:
+  32:source\adc_dac/dac1.c ****       RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC,ENABLE);
+ 159              		.loc 1 32 7 is_stmt 1 view .LVU28
+ 160 000a 0121     		movs	r1, #1
+ 161 000c 4FF00050 		mov	r0, #536870912
+ 162 0010 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+ 163              	.LVL14:
+  33:source\adc_dac/dac1.c ****       GPIO_Init_Pin(GPIOA,GPIO_Pin_4,GPIO_Speed_100MHz,GPIO_Mode_ADC);   
+ 164              		.loc 1 33 7 view .LVU29
+ 165 0014 0323     		movs	r3, #3
+  34:source\adc_dac/dac1.c ****       DAC_InitType.DAC_Trigger = DAC_Trigger_None;
+ 166              		.loc 1 34 32 is_stmt 0 view .LVU30
+ 167 0016 0024     		movs	r4, #0
+  33:source\adc_dac/dac1.c ****       GPIO_Init_Pin(GPIOA,GPIO_Pin_4,GPIO_Speed_100MHz,GPIO_Mode_ADC);   
+ 168              		.loc 1 33 7 view .LVU31
+ 169 0018 1A46     		mov	r2, r3
+ 170 001a 0B48     		ldr	r0, .L7
+ 171 001c 1021     		movs	r1, #16
+ 172 001e FFF7FEFF 		bl	GPIO_Init_Pin
+ 173              	.LVL15:
+ 174              		.loc 1 34 7 is_stmt 1 view .LVU32
+  35:source\adc_dac/dac1.c ****       DAC_InitType.DAC_WaveGeneration = DAC_WaveGeneration_None;
+  36:source\adc_dac/dac1.c ****       DAC_InitType.DAC_LFSRUnmask_TriangleAmplitude = DAC_LFSRUnmask_Bit0;
+  37:source\adc_dac/dac1.c ****       DAC_InitType.DAC_OutputBuffer = DAC_OutputBuffer_Disable;
+ 175              		.loc 1 37 37 is_stmt 0 view .LVU33
+ 176 0022 0223     		movs	r3, #2
+  38:source\adc_dac/dac1.c ****       DAC_Init(DAC_Channel_1,&DAC_InitType);
+ 177              		.loc 1 38 7 view .LVU34
+ 178 0024 6946     		mov	r1, sp
+ 179 0026 2046     		mov	r0, r4
+  37:source\adc_dac/dac1.c ****       DAC_Init(DAC_Channel_1,&DAC_InitType);
+ 180              		.loc 1 37 37 view .LVU35
+ 181 0028 0393     		str	r3, [sp, #12]
+  35:source\adc_dac/dac1.c ****       DAC_InitType.DAC_WaveGeneration = DAC_WaveGeneration_None;
+ 182              		.loc 1 35 39 view .LVU36
+ 183 002a CDE90044 		strd	r4, r4, [sp]
+  36:source\adc_dac/dac1.c ****       DAC_InitType.DAC_OutputBuffer = DAC_OutputBuffer_Disable;
+ 184              		.loc 1 36 7 is_stmt 1 view .LVU37
+  36:source\adc_dac/dac1.c ****       DAC_InitType.DAC_OutputBuffer = DAC_OutputBuffer_Disable;
+ 185              		.loc 1 36 53 is_stmt 0 view .LVU38
+ 186 002e 0294     		str	r4, [sp, #8]
+  37:source\adc_dac/dac1.c ****       DAC_Init(DAC_Channel_1,&DAC_InitType);
+ 187              		.loc 1 37 7 is_stmt 1 view .LVU39
+ 188              		.loc 1 38 7 view .LVU40
+ 189 0030 FFF7FEFF 		bl	DAC_Init
+ 190              	.LVL16:
+  39:source\adc_dac/dac1.c ****       DAC_Cmd(DAC_Channel_1,ENABLE);  
+ 191              		.loc 1 39 7 view .LVU41
+ 192 0034 2046     		mov	r0, r4
+ 193 0036 0121     		movs	r1, #1
+ 194 0038 FFF7FEFF 		bl	DAC_Cmd
+ 195              	.LVL17:
+  40:source\adc_dac/dac1.c ****       DAC_SetChannel1Data(DAC_Align_12b_R,0);
+ 196              		.loc 1 40 7 view .LVU42
+ 197 003c 2146     		mov	r1, r4
+ 198 003e 2046     		mov	r0, r4
+ 199 0040 FFF7FEFF 		bl	DAC_SetChannel1Data
+ 200              	.LVL18:
+  41:source\adc_dac/dac1.c **** }
+ 201              		.loc 1 41 1 is_stmt 0 view .LVU43
+ 202 0044 04B0     		add	sp, sp, #16
+ 203              		.cfi_def_cfa_offset 8
+ 204              		@ sp needed
+ 205 0046 10BD     		pop	{r4, pc}
+ 206              	.L8:
+ 207              		.align	2
+ 208              	.L7:
+ 209 0048 00000240 		.word	1073872896
+ 210              		.cfi_endproc
+ 211              	.LFE124:
+ 213              		.global	send_dac
+ 214              		.section	.bss.send_dac,"aw",%nobits
+ 215              		.align	1
+ 218              	send_dac:
+ 219 0000 0000     		.space	2
+ 220              		.text
+ 221              	.Letext0:
+ 222              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/arm-none-eabi/include/ma
+ 223              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.3 rel1/arm-none-eabi/include/sy
+ 224              		.file 4 "/project/stm32fx_iolib/stm32fxxx/stm32f4xx/stm32f4xx.h"
+ 225              		.file 5 "/project/stm32fx_iolib/stm32f4x_iolib/include/stm32f4xx_dac.h"
+ 226              		.file 6 "/project/stm32fx_iolib/stm32f4x_iolib/include/stm32f4xx_gpio.h"
+ 227              		.file 7 "/project/stm32fx_iolib/stm32f4x_iolib/include/stm32f4xx_rcc.h"
+ 228              		.file 8 "source\\adc_dac\\../prototype.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 dac1.c
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:29     .text.Dac1_Set_Voltage:00000000 $t
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:35     .text.Dac1_Set_Voltage:00000000 Dac1_Set_Voltage
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:123    .text.Dac1_Set_Voltage:00000068 $d
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:218    .bss.send_dac:00000000 send_dac
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:135    .text.Dac1_Init:00000000 $t
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:141    .text.Dac1_Init:00000000 Dac1_Init
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:209    .text.Dac1_Init:00000048 $d
+C:\Users\gedha\AppData\Local\Temp\ccnW7XVR.s:215    .bss.send_dac:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ui2d
+__aeabi_ddiv
+__aeabi_dmul
+__aeabi_dcmpgt
+__aeabi_d2uiz
+DAC_SetChannel1Data
+lcd_printf
+RCC_AHB1PeriphClockCmd
+RCC_APB1PeriphClockCmd
+GPIO_Init_Pin
+DAC_Init
+DAC_Cmd
